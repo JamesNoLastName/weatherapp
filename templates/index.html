@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            padding: 20px;
+        }
+        @weather-result {
+            margin-top: 20px;
+        }
+        .weather-info {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">Weather App</h1>
+        <form action="" class="form-inline justify-content-center" id="weather-form">
+            <div class="form-group mb-2">
+                <label for="city">City</label>
+                <input type="text" name="city" class="form-control" id="city">
+            </div>
+            <button type="submit" class="btn btn-primary mb-2 ml-2">Get-Weather</button>
+        </form>
+        <div id="weather-result" class="text-center">
+            <h2>Weather Details:</h2>
+            <div class="weather-info">
+                <i class="fas fa-city"></i><span id="city-name"></span>
+            </div>
+            <div class="weather-info">
+                <i class="fas fa-thermometer-half"></i><span id="temperature"></span>
+            </div>
+            <div class="weather-info">
+                <i class="fas fa-cloud"></i><span id="description"></span>
+            </div>
+            <div class="weather-info">
+                <i class="fas fa-tint"></i><span id="humidity"></span>
+            </div>
+            <div class="weather-info">
+                <i class="fas fa-tachometer-alt"></i><span id="pressure"></span>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function() {
+            $('#weather-form').on('submit', function(event) {
+                event.preventDefault();
+                var city = $('#city').val();
+                $.ajax({
+                    type: 'POST', 
+                    url: '/weather',
+                    data: { city: city },
+                    success: function(data) {
+                        if (data.error) {
+                            $('#weather-result').html('<p class="text-danger">' + data.error + '</p>');  
+                        } else {
+                            $('#city-name').text('City: ' + data.city);
+                            $('#temperature').text('Temperature: ' + data.temperature + ' °C');
+                            $('#description').text('Description: ' + data.description);
+                            $('#humidity').text('Humidity: ' + data.humidity + '%');
+                            $('#pressure').text('Pressure: ' + data.pressure + ' hPa');
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
