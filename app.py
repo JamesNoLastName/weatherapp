@@ -10,7 +10,7 @@ app = Flask(__name__)
 API_KEY = os.getenv('API_KEY')
 
 def get_weather(city):
-    base_url = 'https://api.weatherapi.com/v1/current.json'  # Corrected API endpoint
+    base_url = 'https://api.weatherapi.com/v1/current.json'
     params = {
         'key': API_KEY,
         'q': city
@@ -28,20 +28,20 @@ def get_weather(city):
             'pressure': data['current']['pressure_mb']
         }
         return weather
-    except requests.exceptions.HTTPError as http_err:
-        return {'error': f"HTTP error occurred: {http_err}"}
-    except requests.exceptions.ConnectionError as conn_err:
-        return {'error': f"Connection error: {conn_err}"}
-    except requests.exceptions.Timeout as timeout_err:
-        return {'error': f"Timeout error: {timeout_err}"}
-    except requests.exceptions.RequestException as req_err:
-        return {'error': f"An error occurred: {req_err}"}
+    except requests.exceptions.HTTPError:
+        return {'error': "Unable to fetch weather data. Please check the city name."}
+    except requests.exceptions.ConnectionError:
+        return {'error': "Connection error. Please check your internet connection."}
+    except requests.exceptions.Timeout:
+        return {'error': "Request timed out. Please try again."}
+    except requests.exceptions.RequestException:
+        return {'error': "An unexpected error occurred. Please try again later."}
 
 @app.route('/')
 def index():
     return render_template('index.html')
 
-@app.route('/weather', methods=['POST'])  # Fixed this line
+@app.route('/weather', methods=['POST'])
 def weather():
     city = request.form['city']
     weather_data = get_weather(city)
