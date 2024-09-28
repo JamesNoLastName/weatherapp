@@ -29,7 +29,11 @@
         <form action="" class="form-inline justify-content-center" id="weather-form">
             <div class="form-group mb-2">
                 <label for="city" class="mr-2">City</label>
-                <input type="text" name="city" class="form-control" id="city" required>
+                <input type="text" name="city" class="form-control" id="city" placeholder="Boston" required>
+            </div>
+            <div class="form-group mb-2">
+                <label for="state" class="mr-2">State (Optional!)</label>
+                <input type="text" name="state" class="form-control" id="state" placeholder="MA">
             </div>
             <button type="submit" class="btn btn-primary mb-2 ml-2">Get Weather</button>
         </form>
@@ -37,7 +41,7 @@
         <div id="weather-result" class="text-center" style="display:none;">
             <h2>Weather Details:</h2>
             <div class="weather-info">
-                <i class="fas fa-city"></i> <span id="city-name"></span>
+                <i class="fas fa-city"></i> <span id="city-name"></span>, <span id="region-name"></span>
             </div>
             <div class="weather-info">
                 <i class="fas fa-thermometer-half"></i> <span id="temperature"></span>
@@ -56,23 +60,25 @@
     <script>
         $(document).ready(function() {
             $('#weather-form').on('submit', function(event) {
-                event.preventDefault();
+                event.preventDefault(); 
                 var city = $('#city').val();
+                var state = $('#state').val();  
                 $('#error-message').hide(); 
                 $.ajax({
                     type: 'POST',
                     url: '/weather',
-                    data: { city: city },
+                    data: { city: city, state: state },
                     success: function(data) {
                         if (data.error) {
                             $('#error-message').text(data.error).show();
                             $('#weather-result').hide(); 
                         } else {
-                            $('#city-name').text('City: ' + data.city);
-                            $('#temperature').text('Temperature: ' + data.temperature + ' °C');
-                            $('#description').text('Description: ' + data.description);
-                            $('#humidity').text('Humidity: ' + data.humidity + '%');
-                            $('#pressure').text('Pressure: ' + data.pressure + ' hPa');
+                            $('#city-name').text(data.city);
+                            $('#region-name').text(data.region);
+                            $('#temperature').text(data.temperature + ' °C');
+                            $('#description').text(data.description);
+                            $('#humidity').text(data.humidity + '%');
+                            $('#pressure').text(data.pressure + ' hPa');
                             $('#weather-result').show();
                         }
                     },
