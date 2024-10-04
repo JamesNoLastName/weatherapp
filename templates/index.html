@@ -7,62 +7,9 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <style>
-        body {
-            background-color: #f0f8ff;
-            color: #333;
-            font-family: 'Arial', sans-serif;
-            padding: 20px;
-        }
-        h1 {
-            font-size: 2.5em;
-            margin-bottom: 20px;
-            color: #2c3e50;
-        }
-        #greeting, #feeling-message {
-            text-align: center;
-            margin-bottom: 20px;
-            font-size: 1.5em;
-            color: #2980b9;
-        }
-        #weather-form {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 20px;
-        }
-        .form-group {
-            margin-right: 10px;
-        }
-        #error-message {
-            text-align: center;
-            margin-top: 20px; 
-            color: #e74c3c;
-        }
-        #weather-result {
-            text-align: center;
-            background-color: #ffffff;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-        }
-        .weather-info {
-            margin-top: 10px;
-        }
-        button {
-            background-color: #2980b9;
-            color: white;
-        }
-        button:hover {
-            background-color: #3498db;
-        }
-        .slider-container {
-            text-align: center;
-            margin-top: 20px;
-        }
-        .emoji {
-            font-size: 2em; 
-        }
-    </style>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <script src="/static/js/script.js"></script>
+
 </head>
 <body>
     <div class="container">
@@ -109,81 +56,5 @@
             </div>
         </div>
     </div>
-    <script>
-        function displayGreeting() {
-            const now = new Date();
-            const hour = now.getHours();
-            const minutes = now.getMinutes().toString().padStart(2, '0');
-            const seconds = now.getSeconds().toString().padStart(2, '0');
-            const currentTime = `${hour}:${minutes}:${seconds}`;
-            let greeting;
-
-            if (hour < 12) {
-                greeting = `Good Morning! The time is ${currentTime}`;
-            } else if (hour < 18) {
-                greeting = `Good Afternoon! The time is ${currentTime}`;
-            } else {
-                greeting = `Good Evening! The time is ${currentTime}`;
-            }
-
-            $('#greeting').text(greeting);
-        }
-
-        $(document).ready(function() {
-            displayGreeting();
-            setInterval(displayGreeting, 1000);
-
-            $('#mood-response').text("Let us know how your day was!");
-
-            $('#good-day').on('click', function() {
-                $('#mood-response').text("Yippee");
-                $('#good-day, #bad-day').hide(); 
-            });
-
-            $('#bad-day').on('click', function() {
-                $('#mood-response').text("Sorry to hear, I hope your day gets better ❤️‍🩹");
-                $('#good-day, #bad-day').hide();
-            });
-
-            $('#weather-form').on('submit', function(event) {
-                event.preventDefault();
-                var city = $('#city').val();
-                var state = $('#state').val();
-                $('#error-message').hide(); 
-
-                $.ajax({
-                    type: 'POST',
-                    url: '/weather',
-                    data: { city: city, state: state },
-                    success: function(data) {
-                        if (data.error) {
-                            $('#error-message').text(data.error).show();
-                            $('#weather-result').hide();
-                        } else {
-                            $('#city-name').text(data.city);
-                            $('#region-name').text(data.region);
-                            $('#temperature').text(data.temperature + ' °C');
-                            $('#description').text(data.description);
-                            $('#humidity').text(data.humidity + '%');
-                            $('#pressure').text(data.pressure + ' hPa');
-
-                            if (data.rain) {
-                                $('#rain-message').text(`It's raining with ${data.rain} mm in the last hour.`);
-                                $('#rain-info').show();
-                            } else {
-                                $('#rain-info').hide();
-                            }
-
-                            $('#weather-result').show();
-                        }
-                    },
-                    error: function() {
-                        $('#error-message').text('An unexpected error occurred. Please try again.').show();
-                        $('#weather-result').hide();
-                    }
-                });
-            });
-        });
-    </script>
 </body>
 </html>
