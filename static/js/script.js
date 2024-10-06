@@ -16,7 +16,6 @@ function displayGreeting() {
 
     $('#greeting').text(greeting);
 }
-
     $(document).ready(function() {
         displayGreeting();
         setInterval(displayGreeting, 1000);
@@ -56,18 +55,20 @@ function displayGreeting() {
                     'visibility': 'visible'
                 })
                 .text("Sorry to hear, I hope your day gets better ❤️‍🩹")
-                .animate({ opacity: 1 }, 2000); // Slow fade-in over 2 seconds
+                .animate({ opacity: 1 }, 1000) // Slow fade-in over 1 second
+                .animate({ opacity: 0 }, 5000, function() {
+                    $(this).css('visibility', 'hidden'); // Keep space but hide
+                }); // Fade out after 5 seconds
+
             $('#good-day, #bad-day').hide();
         });
 
-
-    // Weather form submission
     $('#weather-form').on('submit', function(event) {
         event.preventDefault();
         var city = $('#city').val();
         var state = $('#state').val();
         $('#error-message').hide(); 
-
+    
         $.ajax({
             type: 'POST',
             url: '/weather',
@@ -77,21 +78,20 @@ function displayGreeting() {
                     $('#error-message').text(data.error).show();
                     $('#weather-result').hide();
                 } else {
-                    $('#city-name').text(data.city);
-                    $('#region-name').text(data.region);
-                    $('#temperature').text(data.temperature + ' °C');
-                    $('#description').text(data.description);
-                    $('#humidity').text(data.humidity + '%');
-                    $('#pressure').text(data.pressure + ' hPa');
+                    $('#city-name').text(': ' + data.city); // Add space before city
+                    $('#region-name').text('‎ ' + data.region); // Add space before region
+                    $('#temperature').text(': ' + data.temperature + ' °C'); // Add space before temperature
+                    $('#description').text(': ' + data.description); // Add space before description
+                    $('#humidity').text(': ' + data.humidity + '%'); // Add space before humidity
+                    $('#pressure').text(': ' + data.pressure + ' hPa'); // Add space before pressure
 
                     if (data.rain) {
-                        $('#rain-message').text(`It's raining with ${data.rain} mm in the last hour.`);
+                        $('#rain-message').text(` It's raining with ${data.rain} mm in the last hour.`); // Add space before rain message
                         $('#rain-info').show();
                     } else {
                         $('#rain-info').hide();
                     }
-
-                    $('#weather-result').show();
+                    $('#weather-result').hide().fadeIn(500); // Initially hide and then fade in over 1 second
                 }
             },
             error: function() {
@@ -100,6 +100,7 @@ function displayGreeting() {
             }
         });
     });
+        
 
     // Background change
     function changeBackground(imageUrl) {
@@ -116,9 +117,9 @@ function displayGreeting() {
             'opacity': 0
         }).appendTo('body');
 
-        tempBackground.animate({ opacity: 1 }, 2000, function() {
+        tempBackground.animate({ opacity: 1 }, 1000, function() {
             $('body').css('background-image', 'url(' + imageUrl + ')');
-            tempBackground.fadeOut(500, function() {
+            tempBackground.fadeOut(250, function() {
                 $(this).remove();
             });
         });

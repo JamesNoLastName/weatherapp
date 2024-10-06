@@ -84,7 +84,21 @@ button:hover {
 }
 
 .emoji {
-    font-size: 2em;
+    font-size: 2em; /* Your existing emoji style */
+    margin: 0 5px; /* Space between emojis */
+}
+
+/* Specific adjustments for each emoji */
+#day-theme {
+    margin-right: 15px; /* Move this emoji 10px to the right */
+}
+
+#afternoon-theme {
+    margin-right: 15px; /* Move this emoji 10px to the right */
+}
+
+#night-theme {
+    margin-right: 15px; /* Move this emoji 10px to the right */
 }
 
 #greeting-container {
@@ -118,9 +132,9 @@ button:hover {
 }
 
 #weather-result {
-    margin: 0 auto;
-    padding: 5px;
-    background-color: rgba(255, 255, 255, 0.9);
+    margin: 30px auto;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.7); /* Semi-transparent background */
     border-radius: 10px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     max-width: 500px;
@@ -155,7 +169,7 @@ button:hover {
     align-items: center; /* Center items horizontally */
     margin: 15px auto;
     max-width: 600px;
-    padding: 10px 20px; /* You can reduce this if needed */
+    padding: 10px 20px; 
     background-color: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(10px);
     border-radius: 15px;
@@ -192,25 +206,23 @@ button:hover {
     margin: 0 auto; /* Center the image */
     display: block; /* Ensure it's treated as a block element for centering */
     position: relative; /* Enables positioning adjustments */
-    top: -40px; /* Adjust this value to raise the image further */
+    top: -30px; /* Adjust this value to raise the image further */
 }
 
-* {
-    box-sizing: border-box;
-}
+
 
 html, body {
     margin: 0;
     padding: 0;
-    min-height: 100vh; /* Use min-height */
-    overflow: hidden; /* Prevent scrolling temporarily */
+    min-height: 100vh; 
+    overflow: hidden; 
 }
 
 .weather-text {
-    font-size: 0.9rem; /* Set the font size to 0.9rem */
+    font-size: 1rem; 
 }
 
 .weather-label {
-    font-size: 0.9rem; /* Set a smaller size for the labels */
-    color: #333; /* Optional: adjust color if needed */
+    font-size: 1rem; 
+    color: #333; 
 }
