@@ -3,52 +3,214 @@ body {
     color: #333;
     font-family: 'Arial', sans-serif;
     padding: 20px;
+    background-image: url('/static/media/bliss.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    margin-top: 5px;
 }
+
 h1 {
     font-size: 2.5em;
-    margin-bottom: 20px;
-    color: #2c3e50;
+    margin-bottom: 15px;
+    color: #ffffff;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
 }
+
 #greeting, #feeling-message {
     text-align: center;
-    margin-bottom: 20px;
-    font-size: 1.5em;
-    color: #2980b9;
+    margin-bottom: 5px;
+    font-size: 1.8em;
+    color: #ffffff;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s;
 }
+
+#greeting:hover, #feeling-message:hover {
+    transform: scale(1.1);
+}
+
 #weather-form {
     display: flex;
     justify-content: center;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
-.form-group {
-    margin-right: 10px;
-}
+
+
 #error-message {
     text-align: center;
-    margin-top: 20px; 
+    margin-top: 15px;
     color: #e74c3c;
 }
+
 #weather-result {
     text-align: center;
-    background-color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(8px);
     border-radius: 10px;
-    padding: 20px;
+    padding: 10px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
+
 .weather-info {
-    margin-top: 10px;
+    margin-top: 5px;
+    color: #2c3e50;
 }
+
 button {
+    border-radius: 5px;
     background-color: #2980b9;
     color: white;
+    transition: background-color 0.3s;
 }
+
 button:hover {
     background-color: #3498db;
 }
+
 .slider-container {
     text-align: center;
-    margin-top: 20px;
+    margin-top: -5px;
 }
+
+#good-day, #bad-day {
+    margin: 0 5px;
+}
+
+#mood-response {
+    margin-top: -10px;
+    padding-top: 0;
+}
+
 .emoji {
-    font-size: 2em; 
+    font-size: 2em;
+}
+
+#greeting-container {
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(10px);
+    color: #fff;
+    padding: 15px;
+    border-radius: 15px;
+    border: 2px solid rgba(0, 255, 30, 0.7);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    margin: -10px auto 15px; /* Use negative top margin to reduce space */
+    max-width: 750px;
+}
+
+
+#greeting {
+    font-size: 2.5em;
+    margin-bottom: 5px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+#feeling-message {
+    font-size: 1.8em;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+    margin: 0;
+}
+
+.container {
+    margin-top: -15px;
+}
+
+#weather-result {
+    margin: 0 auto;
+    padding: 5px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+}
+
+.weather-info {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 2px 0;
+    font-size: 0.9rem;
+    padding: 2px 0;
+}
+
+.rectangle {
+    padding: 8px;
+}
+
+#mood-buttons {
+    text-align: center;
+    margin-bottom: 0;
+}
+
+#content-below {
+    margin-top: -5px;
+    padding-top: 0;
+}
+
+#location-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center items horizontally */
+    margin: 15px auto;
+    max-width: 600px;
+    padding: 10px 20px; /* You can reduce this if needed */
+    background-color: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    margin-top: -5px;
+}
+
+.form-group {
+    margin: 15px 0; /* Add vertical space between the inputs */
+    width: 100%; /* Ensure it takes the full width */
+}
+
+.form-control {
+    border: 2px solid #2980b9;
+    border-radius: 5px;
+    backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, 0.8);
+    color: #2c3e50;
+    padding: 8px;
+    width: calc(100% - 20px); /* Adjust width to account for padding */
+}
+
+
+#weather-button-container {
+    display: flex;
+    justify-content: center; /* Center buttons */
+    width: 100%; /* Ensures the button container takes full width */
+    margin-top: 15px; /* Add some space if needed */
+}
+
+.weather-logo {
+    max-width: 60%; /* Adjust as necessary */
+    height: auto; /* Maintain aspect ratio */
+    margin: 0 auto; /* Center the image */
+    display: block; /* Ensure it's treated as a block element for centering */
+    position: relative; /* Enables positioning adjustments */
+    top: -40px; /* Adjust this value to raise the image further */
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh; /* Use min-height */
+    overflow: hidden; /* Prevent scrolling temporarily */
+}
+
+.weather-text {
+    font-size: 0.9rem; /* Set the font size to 0.9rem */
+}
+
+.weather-label {
+    font-size: 0.9rem; /* Set a smaller size for the labels */
+    color: #333; /* Optional: adjust color if needed */
 }

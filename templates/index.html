@@ -9,52 +9,68 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="/static/css/styles.css">
     <script src="/static/js/script.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
 </head>
 <body>
+    <div class="emoji-container text-right mt-3">
+        <span id="day-theme" class="emoji" style="cursor: pointer;">☀️</span>
+        <span id="afternoon-theme" class="emoji" style="cursor: pointer;">🌤️</span>
+        <span id="night-theme" class="emoji" style="cursor: pointer;">🌙</span>
+    </div>    
     <div class="container">
-        <h1 class="text-center">Cozy Weather App</h1>
-        <div id="greeting"></div>
-        <div id="feeling-message">Did you have a good day?</div>
+        <img src="static/media/weathermatic.png" alt="Cozy Weather App" class="weather-logo">
+
+        <!-- Merged greeting and feeling-message into one rectangle -->
+        <div id="greeting-container" class="rectangle">
+            <h1 id="greeting"></h1>
+            <p id="feeling-message">Are you having a good day?</p>
+        </div>
+
         <div class="slider-container text-center">
             <button id="good-day" class="btn btn-success mx-2">Yes 😊</button>
             <button id="bad-day" class="btn btn-danger mx-2">No 😢</button>
             <div id="mood-response" class="emoji mt-3"></div>
         </div>
-
-        <form action="" class="form-inline" id="weather-form">
-            <div class="form-group">
-                <label for="city" class="mr-2">City</label>
-                <input type="text" name="city" class="form-control" id="city" placeholder="e.g., Boston" required>
-            </div>
-            <div class="form-group">
-                <label for="state" class="mr-2">State (Optional!)</label>
-                <input type="text" name="state" class="form-control" id="state" placeholder="e.g., MA">
-            </div>
-            <button type="submit" class="btn btn-primary">Get Weather</button>
-        </form>
+        
+        <div id="location-container">
+            <form id="weather-form">
+                <div class="form-group">
+                    <label for="city">City</label>
+                    <input type="text" name="city" class="form-control" id="city" placeholder="e.g., Boston" required>
+                </div>
+                <div class="form-group">
+                    <label for="state">State (Optional!)</label>
+                    <input type="text" name="state" class="form-control" id="state" placeholder="e.g., MA">
+                </div>
+                <div id="weather-button-container">
+                    <button type="submit" id="get-weather" class="btn btn-primary">Get Weather</button>
+                </div>
+            </form>
+        </div>
+        
+        
+        
         <div id="error-message" class="text-danger" style="display:none;"></div>
         <div id="weather-result" style="display:none;">
-            <h2>Weather Details:</h2>
-            <div class="weather-info">
-                <span class="emoji">☀️</span> <span id="city-name"></span>, <span id="region-name"></span>
+            <div class="rectangle weather-info">
+                <span class="emoji"></span> <span class="weather-label">📍Location: </span><span id="city-name" class="weather-text"></span>, <span id="region-name" class="weather-text"></span>
             </div>
-            <div class="weather-info">
-                <span class="emoji">🌡️</span> <span id="temperature"></span>
+            <div class="rectangle weather-info">
+                <span class="emoji"></span> <span class="weather-label">🌡️ Temperature: </span><span id="temperature" class="weather-text"></span>
             </div>
-            <div class="weather-info">
-                <span class="emoji">☁️</span> <span id="description"></span>
+            <div class="rectangle weather-info">
+                <span class="emoji"></span> <span class="weather-label">☁️ Description: </span><span id="description" class="weather-text"></span>
             </div>
-            <div class="weather-info">
-                <span class="emoji">💧</span> <span id="humidity"></span>
+            <div class="rectangle weather-info">
+                <span class="emoji"></span> <span class="weather-label">💧 Humidity: </span><span id="humidity" class="weather-text"></span>
             </div>
-            <div class="weather-info">
-                <span class="emoji">📏</span> <span id="pressure"></span>
+            <div class="rectangle weather-info">
+                <span class="emoji"></span> <span class="weather-label">📏 Pressure: </span><span id="pressure" class="weather-text"></span>
             </div>
-            <div class="weather-info" id="rain-info" style="display:none;">
-                <span class="emoji">🌧️</span> <span id="rain-message"></span>
-            </div>
-        </div>
+            <div class="rectangle weather-info" id="rain-info" style="display:none;">
+                <span class="emoji">🌧️</span> <span class="weather-label">Rain: </span><span id="rain-message" class="weather-text"></span>
+            </div>            
+        </div>        
     </div>
 </body>
 </html>

@@ -1,4 +1,3 @@
-// script.js
 function displayGreeting() {
     const now = new Date();
     const hour = now.getHours();
@@ -18,22 +17,51 @@ function displayGreeting() {
     $('#greeting').text(greeting);
 }
 
-$(document).ready(function() {
-    displayGreeting();
-    setInterval(displayGreeting, 1000);
+    $(document).ready(function() {
+        displayGreeting();
+        setInterval(displayGreeting, 1000);
+        
+        // Event listener for "Yes" button
+        $('#good-day').on('click', function() {
+            $('#mood-response')
+                .css({
+                    'opacity': 1, 
+                    'visibility': 'visible' 
+                })
+                .text("Yippee!")
+                .animate({ opacity: 1 }, 1000) // Fade in
+                .animate({ opacity: 0 }, 5000, function() {
+                    $(this).css('visibility', 'hidden'); // Keep space but hide
+                });
+            
+            // Trigger confetti effect
+            confetti({
+                particleCount: 777,
+                spread: 180,
+                origin: { y: 0.6 },
+                zIndex: 9999,
+                scalar: 3.0,
+                gravity: 1.23456789,
+                startVelocity: 77
+            });
 
-    $('#mood-response').text("Let us know how your day was!");
+            $('#good-day, #bad-day').hide(); 
+        });
 
-    $('#good-day').on('click', function() {
-        $('#mood-response').text("Yippee");
-        $('#good-day, #bad-day').hide(); 
-    });
+        // Event listener for "No" button
+        $('#bad-day').on('click', function() {
+            $('#mood-response')
+                .css({
+                    'opacity': 0,
+                    'visibility': 'visible'
+                })
+                .text("Sorry to hear, I hope your day gets better ❤️‍🩹")
+                .animate({ opacity: 1 }, 2000); // Slow fade-in over 2 seconds
+            $('#good-day, #bad-day').hide();
+        });
 
-    $('#bad-day').on('click', function() {
-        $('#mood-response').text("Sorry to hear, I hope your day gets better ❤️‍🩹");
-        $('#good-day, #bad-day').hide();
-    });
 
+    // Weather form submission
     $('#weather-form').on('submit', function(event) {
         event.preventDefault();
         var city = $('#city').val();
@@ -71,5 +99,40 @@ $(document).ready(function() {
                 $('#weather-result').hide();
             }
         });
+    });
+
+    // Background change
+    function changeBackground(imageUrl) {
+        const tempBackground = $('<div>').css({
+            'position': 'fixed',
+            'top': 0,
+            'left': 0,
+            'width': '100%',
+            'height': '100%',
+            'background-image': 'url(' + imageUrl + ')',
+            'background-size': 'cover',
+            'background-position': 'center',
+            'z-index': -1,
+            'opacity': 0
+        }).appendTo('body');
+
+        tempBackground.animate({ opacity: 1 }, 2000, function() {
+            $('body').css('background-image', 'url(' + imageUrl + ')');
+            tempBackground.fadeOut(500, function() {
+                $(this).remove();
+            });
+        });
+    }
+    
+    $('#day-theme').on('click', function() {
+        changeBackground('/static/media/blissrise.jpg'); 
+    });
+    
+    $('#afternoon-theme').on('click', function() {
+        changeBackground('/static/media/bliss.jpg'); 
+    });
+    
+    $('#night-theme').on('click', function() {
+        changeBackground('/static/media/blissnight.jpg'); 
     });
 });
